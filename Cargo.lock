@@ -3,5 +3,12 @@
 version = 3
 
 [[package]]
+name = "rs-arm-core"
+version = "0.1.0"
+
+[[package]]
 name = "rs-m0p-trace"
 version = "0.1.0"
+dependencies = [
+ "rs-arm-core",
+]
