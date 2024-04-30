@@ -3,6 +3,7 @@
 
 extern crate rs_arm_core;
 
+mod mcg;
 mod vectors;
 
 static RO_DATA: &[u8] = b"Hello world!";
