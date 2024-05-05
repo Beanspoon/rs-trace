@@ -1,3 +1,4 @@
+#![allow(unused)]
 use rs_arm_core::{default_interrupt_handler, Vector};
 
 #[link_section = ".vector_table.interrupts"]
