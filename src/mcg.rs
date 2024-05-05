@@ -1,6 +1,6 @@
 #![allow(unused)]
+use crate::read_modify_write;
 use core::ptr;
-
 use modify_derive::Modify;
 
 #[repr(packed)]
@@ -108,15 +108,6 @@ enum FllLowPowerDisable {
 enum InternalReferenceClockSelect {
     Slow,
     Fast,
-}
-
-macro_rules! read_modify_write {
-    ($fn_name: ident, $register: ident, $setting_type: ty) => {
-        pub unsafe fn $fn_name(&mut self, value: $setting_type) {
-            let read = ptr::read_volatile(&self.$register);
-            ptr::write_volatile(&mut self.$register, value.modify(read));
-        }
-    };
 }
 
 impl MCG {
