@@ -1,21 +1,21 @@
 #![no_std]
 #![no_main]
 
+use sim::{UartClockSource, SIM};
+
 extern crate rs_arm_core;
 
 mod mcg;
 pub mod register;
+mod sim;
 mod vectors;
-
-static RO_DATA: &[u8] = b"Hello world!";
-static mut BSS: u8 = 0;
-static mut DATA: u8 = 1;
-
+// SBR = 26
+// OSR = 16
+// FRDIV = 1
+// baud: 9600
 #[no_mangle]
 pub fn main() -> ! {
-    let _x = RO_DATA;
-    let _y = unsafe { &BSS };
-    let _z = unsafe { &DATA };
+    SIM::access().set_uart_clock_source(UartClockSource::MCGIRClock);
 
     loop {}
 }
