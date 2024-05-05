@@ -33,14 +33,14 @@ pub fn derive(input: TokenStream) -> TokenStream {
     let opts = Opts::from_derive_input(&input).expect("Missing options");
     let DeriveInput { ident, .. } = input;
 
-    let base: u8 = 2;
-    let mask = (base.pow(opts.width.into()) - 1) << opts.position;
+    let base: u32 = 2;
     let position = opts.position;
     let register_type = opts.register_type;
+    let mask = (base.pow(opts.width.into()) - 1) << opts.position;
     let output = quote! {
         impl #ident {
             fn modify(self, read_value: #register_type) -> #register_type {
-                (read_value & #mask) | ((self as #register_type) << #position)
+                (read_value & (#mask as #register_type)) | ((self as #register_type) << #position)
             }
         }
     };
