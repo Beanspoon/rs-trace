@@ -3,8 +3,12 @@ use crate::read_modify_write;
 use core::ptr;
 use modify_derive::Modify;
 
-#[repr(packed)]
-struct MCG {
+pub struct MCG {
+    registers: *mut RegisterBlock,
+}
+
+#[repr(C)]
+struct RegisterBlock {
     control1: u8,
     control2: u8,
     control3: u8,
